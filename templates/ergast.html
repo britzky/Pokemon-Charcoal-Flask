@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form action="/ergast" method="POST">
+    <div class="form-group">
+      <label for="pokemon" class="form-label">Enter a Pokemon: </label>
+      <input type="text" class="form-control" id="pokemon" name="pokemon">
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <div>
+          {{error}}
+        </div>
+  </form>
+
+{% if new_pokemon_data %}
+<table class="table table-dark table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Ability</th>
+        <th scope="col">HP</th>
+        <th scope="col">Defense</th>
+        <th scope="col">Attack</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for pokemon in new_pokemon_data  %}
+      <tr>
+        <th scope="row">{{pokemon.name}}</th>
+        <td>{{pokemon.ability}}</td>
+        <td>{{pokemon.hp_base_stat}}</td>
+        <td>{{pokemon.defense_base_stat}}</td>
+        <td>{{pokemon.attack_base_stat}}</td>
+      </tr>
+      <div>
+        <img src="{{pokemon.sprite}}" alt="pokemon picture">
+      </div>
+      
+      {% endfor %}
+    </tbody>
+  </table>
+{% endif %}
+{% endblock %}
