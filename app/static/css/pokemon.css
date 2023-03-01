@@ -1,0 +1,14 @@
+* { 
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.submit_btn {
+    padding: .5em;
+}
+
+.box {
+    padding: 1em;
+    max-width: 15%;
+}
