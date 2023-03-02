@@ -1,12 +1,22 @@
 from flask import render_template, request
 import requests
-from app.forms import PokemonForm
+from app.forms import PokemonForm, SignUpForm, LoginForm
 from app import app
 
 # Routes section
 @app.route('/', methods=['GET'])
 def home():
     return render_template('home.html')
+
+@app.route('/sign_up', methods=['GET', 'POST'])
+def sign_up():
+    form = SignUpForm()
+    return render_template('sign_up.html', form=form)
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    return render_template('login.html', form=form)
 
 @app.route('/pokemon', methods=['GET', 'POST'])
 def pokemon():
