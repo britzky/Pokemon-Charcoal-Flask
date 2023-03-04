@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, EmailField, PasswordField
-from wtforms.validators import DataRequired
+from wtforms.validators import DataRequired, EqualTo
 
 # Forms Section
 class PokemonForm(FlaskForm):
@@ -12,7 +12,7 @@ class SignUpForm(FlaskForm):
     last_name = StringField('Last Name: ', validators=[DataRequired()])
     email = EmailField('Email: ', validators=[DataRequired()])
     password = PasswordField('Password: ', validators=[DataRequired()])
-    password= PasswordField('Confirm Password: ', validators=[DataRequired()]) 
+    confirm = PasswordField('Confirm Password: ', validators=[DataRequired(), EqualTo('confirm')]) 
     submit_btn = SubmitField('Submit')
 class LoginForm(FlaskForm):
     email = EmailField('Email: ', validators=[DataRequired()])
