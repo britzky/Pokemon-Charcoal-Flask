@@ -9,6 +9,7 @@ class User(UserMixin, db.Model):
     last_name = db.Column(db.String, nullable=False)
     email = db.Column(db.String, nullable=False, unique=True)
     password = db.Column(db.String, nullable=False)
+    profile_image = db.Column(db.String)
     created_on = db.Column(db.DateTime, default=datetime.utcnow())
     
     # hashes our password
@@ -16,7 +17,7 @@ class User(UserMixin, db.Model):
         return generate_password_hash(original_password)
 
     # check password hash
-    def chec_hash_password(self, login_password):
+    def check_hash_password(self, login_password):
         return check_password_hash(self.password, login_password)
     
     # Use this method to register our user attributes
@@ -26,6 +27,10 @@ class User(UserMixin, db.Model):
         self.email = data['email']
         self.password = self.hash_password(data['password'])
 
+    def update(self, data):
+        self.first_name = data['first_name']
+        self.last_name = data['last_name']
+        self.profile_image = data['profile_image']
     
     # Save to our database
     def save_to_db(self):
