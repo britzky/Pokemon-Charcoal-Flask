@@ -22,7 +22,7 @@ def sign_up():
             'first_name': form.first_name.data.title(),
             'last_name': form.last_name.data.title(),
             'email': form.email.data.lower(),
-            'password': form.password.data
+            'password': form.password.data,
         }
         # Create instance of user
         new_user = User()
@@ -34,6 +34,9 @@ def sign_up():
         new_user.save_to_db()
         flash('You have successfully signed up!', 'success')
         return redirect(url_for('auth.login'))
+    
+    else:
+        flash('Passwords do not match', 'danger')
     return render_template('sign_up.html', form=form)
 
 @auth.route('/login', methods=['GET', 'POST'])
@@ -64,20 +67,22 @@ def edit_profile():
             'first_name': form.first_name.data.title(),
             'last_name': form.last_name.data.title(),
             'email': form.email.data.lower(),
-            'password': current_user.password,
-            'profile_image': form.profile_image.data 
         }
-        #cheeck if the email has changed
-        if new_user_data['email'] != current_user.email:
-            # query from our db based on email to change
-            queried_user = User.query.filter_by(email=new_user_data['email']).first()
-            if queried_user:
+
+        # query from our db based on email to change
+        queried_user = User.query.filter_by(email=new_user_data['email']).first()
+        #check if the email has changed
+        if queried_user and current_user.email != queried_user.email:
                 flash('Email already exists', 'danger')
                 return redirect(url_for('auth.edit_profile'))
-            
-        #add changes to database
-        current_user.update(new_user_data)
-        current_user.save_to_db()
-        flash('Profile updated', 'success')
-        return redirect(url_for('main.home'))
+        else: 
+            #add changes to database
+            current_user.update_profile(new_user_data)
+            current_user.update_to_db()
+            flash('Profile updated', 'success')
+            return redirect(url_for('main.home'))
+        
     return render_template('edit_profile.html', form=form)
+
+            
+

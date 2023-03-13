@@ -7,6 +7,7 @@ from wtforms.validators import DataRequired, EqualTo
 class PokemonForm(FlaskForm):
     name = StringField('Enter Pokemon: ', validators=[DataRequired()]) 
     submit_btn = SubmitField('Submit')
+    catch_btn = SubmitField('Catch')
 
 class SignUpForm(FlaskForm):
     first_name = StringField('First Name: ', validators=[DataRequired()])
@@ -14,7 +15,7 @@ class SignUpForm(FlaskForm):
     email = EmailField('Email: ', validators=[DataRequired()])
     password = PasswordField('Password: ', validators=[DataRequired()])
     confirm = PasswordField('Confirm Password: ', validators=[
-        DataRequired(), EqualTo('confirm')]) 
+        DataRequired(), EqualTo('password', message='Passwords must match')])
     submit_btn = SubmitField('Submit')
 class LoginForm(FlaskForm):
     email = EmailField('Email: ', validators=[DataRequired()])
@@ -25,7 +26,4 @@ class EditProfileForm(FlaskForm):
     first_name = StringField('First Name: ', validators=[DataRequired()])
     last_name = StringField('Last Name: ', validators=[DataRequired()])
     email = EmailField('Email: ', validators=[DataRequired()])
-    profile_image = FileField('Profile Image: ', validators=[
-        DataRequired(), FileAllowed(['jpg', 'png'], 'Images only!')
-    ])
     submit_btn = SubmitField('Submit')

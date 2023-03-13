@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Trainers
+{% endblock %}
+
+
+
+{% block content %}
+
+
+{% if user and trainer_id  %}
+{% if user_wins %}
+<div class="victory-container home-text">
+<h1>{{user['first_name'].title()}} {{user['last_name'].title()}} Wins!</h1>
+<p>{{user['first_name'].title()}} {{user['last_name'].title()}} Did {{user_attack_sum}} damage and {{trainer_id['first_name'].title()}} {{trainer_id['last_name'].title()}} had {{trainer_hp_sum}} hp</h1>
+</div>
+{% else %}
+<div class="victory-container home-text">
+<h1>{{trainer_id['first_name'].title()}} {{trainer_id['last_name'].title()}} Wins!</h1>
+<p>{{user['first_name'].title()}} {{user['last_name'].title()}} Did {{user_attack_sum}} damage and {{trainer_id['first_name'].title()}} {{trainer_id['last_name'].title()}} had {{trainer_hp_sum}} hp</p>
+</div>
+{% endif %}
+
+
+
+<div class="card-container">
+  <div class="card text-center trainer-card" style="width: 10rem; height:10rem;">
+    <div class="card-body text-white">
+      <h5 class="card-subtitle">{{user['first_name'].title()}} {{user['last_name'].title()}}</h5>
+    </div>
+  </div>
+
+  {% if user_pokemon %}
+  {% for pokemon in user_pokemon %}
+    <div class="card text-center border-dark" style="width: 14rem; ">
+      <div class="position-relative">
+        <div class="card-img-overlay" data-type="{{pokemon.pokemon_type.lower()}}"></div>
+        <img src="{{pokemon.small_sprite}}" class="card-img-top" alt="pokemon">
+        <div class="card-body">
+          <h5 class="card-title">{{pokemon.name.title()}}</h5>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Ability: {{pokemon.ability.title()}}</li>
+            <li class="list-group-item">HP : {{pokemon.hp_base_stat}}</li>
+            <li class="list-group-item">Defense: {{pokemon.defense_base_stat}}</li>
+            <li class="list-group-item">Attack: {{pokemon.attack_base_stat}}</li>
+            <li class="list-group-item"> Type: {{pokemon.pokemon_type.title()}}</li>
+          </ul>
+        </div> 
+      </div>
+    </div> 
+  {% endfor %}
+  {% endif %}
+</div>
+
+<div class="card-container">
+  <div class="card text-center trainer-card" style="width: 10rem; height:10rem;">
+    <div class="card-body text-white">
+      <h5 class="card-subtitle">{{trainer_id['first_name'].title()}} {{trainer_id['last_name'].title()}}</h5>
+    </div>
+  </div>
+
+
+    {% if trainer_pokemon %}
+      {% for pokemon in trainer_pokemon %}
+    <div class="card text-center border-dark" style="width: 14rem;">
+      <div class="position-relative">
+        <div class="card-img-overlay" data-type="{{pokemon.pokemon_type.lower()}}"></div>
+        <img src="{{pokemon.small_sprite}}" class="card-img-top" alt="pokemon">
+        <div class="card-body">
+          <h5 class="card-title">{{pokemon.name.title()}}</h5>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Ability: {{pokemon.ability.title()}}</li>
+            <li class="list-group-item">HP : {{pokemon.hp_base_stat}}</li>
+            <li class="list-group-item">Defense: {{pokemon.defense_base_stat}}</li>
+            <li class="list-group-item">Attack: {{pokemon.attack_base_stat}}</li>
+            <li class="list-group-item"> Type: {{pokemon.pokemon_type.title()}}</li>
+          </ul>
+        </div> 
+      </div>
+    </div> 
+  {% endfor %}
+  {% endif %}
+  {% endif %}
+</div>
+{% endblock %}

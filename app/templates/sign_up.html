@@ -9,8 +9,8 @@ Sign Up
 {% endblock %}
 
 {% block content %}
-<h1>Sign Up Page</h1>
 <div class="form">
+<h1>Sign Up Page</h1>
   <form action="{{url_for('auth.sign_up')}}" method="POST">
     {{form.hidden_tag()}}
     <div class="form-group">

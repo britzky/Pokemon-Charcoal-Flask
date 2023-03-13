@@ -9,8 +9,8 @@ Edit Profile
 {% endblock %}
 
 {% block content %}
-<h1>Edit Profile</h1>
 <div class="form">
+<h1>Edit Profile</h1>
   <form action="{{url_for('auth.edit_profile')}}" method="POST">
     {{form.hidden_tag()}}
     <div class="form-group">
@@ -24,11 +24,6 @@ Edit Profile
     <div class="form-group">
       {{form.email.label()}}
       {{form.email(class='form-control')}}
-    </div>
-    <div class="form-group">
-      {{form.profile_image.label()}}
-      {{form.profile_image(class='form-control')}}
-    </div>
     </div>
     <div class="submit_btn">
       {{form.submit_btn(class='btn btn-primary')}} 

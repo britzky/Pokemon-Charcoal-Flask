@@ -1,6 +1,6 @@
 <nav class="navbar sticky-top navbar-dark bg-dark navbar-expand-lg">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/">Pokemon stuff</a>
+        <a class="navbar-brand" href="/">Pokemon Charcoal</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
         </button>
@@ -11,7 +11,7 @@
                 <a class="nav-link active" aria-current="page" href="{{url_for('main.home')}}">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{url_for('main.pokemon')}}">Pokemon</a>
+                <a class="nav-link" href="{{url_for('main.pokemon')}}">Catch Pokemon</a>
             </li>
             {% else %}
             <li class="nav-item">
@@ -22,15 +22,21 @@
             <a class="nav-link" href="{{url_for('auth.login')}}">Login</a>
             {% endif %}
         </div>
-        <div>
+        {% if current_user.is_authenticated %}
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
               {% if current_user.profile_image %}
-              <img src="{{current_user.profile_picture}}">
               {% else %}
-              <a class="nav-link" href="#">Hello, {{current_user.first_name}}</a>
+              <a class="nav-link" href="#">Hello, {{current_user.first_name}} {{current_user.last_name}} </a>
               {% endif %}
-            </li
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('main.trainers')}}">Trainers</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('main.my_pokemon')}}">My Team</a>
+            </li>
             <li class="nav-item">
               <a class="nav-link" href="{{url_for('auth.edit_profile')}}">Edit Profile</a>
             </li>
@@ -39,5 +45,6 @@
             </li>
           </ul>
         </div>
+        {% endif %}
     </div>
     </nav>

@@ -1,31 +1,17 @@
 {% extends 'base.html' %}
-
 {% block title %}
-Pokemon
+My Pokemon
 {% endblock %}
 
+
+
 {% block content %}
-<div class="form">
-<h1>Catch Pokemon</h1>
-  <form action="{{url_for('main.pokemon')}}" method="POST">
-    {{form.hidden_tag()}}
-    <div class="form-group">
-        {{form.name.label()}}
-        {{form.name(class='form-control')}}
-    </div>
-    <div class="submit_btn">
-      {{form.submit_btn(class='btn btn-primary')}}
-    </div>
-    <div style="color:red">
-        <small>{{error}}</small>
-    </div>
-</form>
+<div class="victory-container home-text">
+  <p class="text">These are your pokemon! Feel free to let them go if you want!</p>
 </div>
-
-
-{% if new_pokemon_data %}
-{% for pokemon in new_pokemon_data  %}
-<div class="card-container" >
+<div class="card-container">
+{% if user_pokemon %}
+{% for pokemon in user_pokemon  %}
   <div class="card text-center border-dark" style="width: 18rem;">
     <div class="position-relative">
       <div class="card-img-overlay" data-type="{{pokemon.pokemon_type.lower()}}"></div>
@@ -39,12 +25,11 @@ Pokemon
           <li class="list-group-item">Attack: {{pokemon.attack_base_stat}}</li>
           <li class="list-group-item"> Type: {{pokemon.pokemon_type.title()}}</li>
         </ul>
-        <a href="{{url_for('main.catch', pokemon=new_pokemon_data[0].name)}}" class="btn btn-primary">Catch</a>
-        <a href="{{url_for('main.run_away')}}" class="btn btn-primary">Run away</a>
+          <a href="{{url_for('main.release', name=pokemon.name)}}" class="btn btn-primary">Release</a>
       </div> 
     </div>
   </div> 
-</div>
 {% endfor %}
 {% endif %}
+</div>
 {% endblock %}

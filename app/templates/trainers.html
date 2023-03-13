@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}
+Trainers
+{% endblock %}
+
+{% block content %}
+
+<div class="victory-container home-text">
+  <h1> Choose your opponent wisely</h1>
+</div>
+
+<div class="card-container">
+{% for trainer in trainers %}
+{% if trainer  %}
+  <div class="card text-center trainer-card" style="width: 18rem; height:18rem;">
+    <div class="card-body text-white">
+      <h5 class="card-subtitle trainer-card-subtiitle" >{{trainer['first_name'].title()}} {{trainer['last_name'].title()}}</h5>
+      <a href="{{ url_for('main.challenge', user_id=trainer['id']) }}" class="btn btn-primary trainer-btn">Challenge</a>
+    </div>
+  </div>
+{% endif %}
+{% endfor %}
+</div>
+{% endblock %}
